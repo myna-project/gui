@@ -1,0 +1,210 @@
+<!-- ***************************************************************************
+*Copyright (c) 2014 Proxima Centauri srl <info@proxima-centauri.it>.
+* All rights reserved. This program and the accompanying materials
+* are made available under the terms of the GNU Public License v3.0
+* which accompanies this distribution, and is available at
+* http://www.gnu.org/licenses/gpl.html
+*  
+* Contributors:
+*     Proxima Centauri srl <info@proxima-centauri.it> - initial API and implementation
+**************************************************************************** -->
+% import json
+% import urllib2
+
+<div class="row row_details" id="{{room_id}}">
+				% draint=None
+				% drain_val=None
+				% selected_opt="MANUALE"
+				% temp_value=None
+				
+				% try:
+					% response = urllib2.urlopen(url_maps+'/'+room_id)
+					% room_detail = json.loads(response.read()) 
+				% except urllib2.HTTPError:
+					% room_detail = 'Error'
+				% end
+				
+				% if 'Error' is not room_detail:
+				% room_name = room_detail['name']
+				
+					% for d in room_detail['devices']:
+						
+						% try:
+							% response = urllib2.urlopen(url_status+'/'+d)
+							% device_detail = json.loads(response.read()) 
+						% except urllib2.HTTPError:
+							% device_detail = 'Error'
+						% end
+						
+						% if 'Error' is not device_detail:
+						
+							% if device_detail['type'] == "Temperature":
+								 % draint = d
+								 % room_temp = device_detail['value']
+								 
+							% else:
+								% drain_val = d
+								
+								% try:
+									% response = urllib2.urlopen(url_logics+'?filterByRoom='+room_id)
+									% logics_detail = json.loads(response.read()) 
+								% except urllib2.HTTPError:
+									% logics_detail = 'Error'
+								% end
+								
+								% if 'Error' is not logics_detail:
+								
+									% for l in logics_detail['logics']:
+										% if l['enabled']==True:
+											% if 'ThresholdTemperature' in l['type']:
+												% selected_opt="AUTOMATICA"
+											% elif 'TimeProgramming' in l['type']:
+												% selected_opt="ORARIA."
+											% end
+										% end
+									% end
+									
+									% for l in logics_detail['logics']:
+										% if 'ThresholdTemperature' in l['type']:
+											% temp_value=l["temp"]["value"]
+										% end
+									% end
+								% else:
+									% selected_opt = ""
+									% temp_value = "ND"
+									<div>
+										<h2 align="center"> <span data-i18n="app.message.unavailable_logic_details"></span></h2>
+									</div>
+								% end
+							% end
+						% else:
+							% room_temp = "-- ° C"
+							<div>
+								<h2 align="center"> <span data-i18n="app.message.unavailable_device_details"></span></h2>
+							</div>
+							% break
+						% end
+						
+					% end
+	
+					% if temp_value==None:
+						% temp_value=20
+					% end
+				
+				% else:
+					<div>
+						<h2 align="center"><span data-i18n="app.message.unavailable_room_details"></span></h2>
+					</div>
+				% end
+				
+			<!-- <div class="col-md-1"></div> -->
+				<div class="col-md-12">
+					<div class="col-md-12" id="temp-container">
+						<div id="current-temp">
+						%if draint!=None:
+							% if room_temp>=9999:
+								<h2><span data-i18n="app.title.current_temp"></span> : ND °C</h2>
+							% else:
+								<h2><span data-i18n="app.title.current_temp"></span> : {{round(room_temp,1)}} °C</h2>
+							% end
+						%else:
+							<h2><span data-i18n="app.title.current_temp"></span> : -- °C</h2>
+						%end
+						</div>
+						<div ><img id="term_img" src="{{static_file_path}}/images/termometro-300dpi.png" ></div>
+					</div>
+					
+					<!-- check if vlv is present or not -->
+					% if drain_val!=None:
+					<div class="col-md-12">
+					
+										<div class="col-md-6 column"> <span data-i18n="app.title.programming"></span> </div> 
+										<div class="col-md-6 column"> <span data-i18n="app.title.settings"></span></div>
+										
+								
+								<ul id="navigation_menu2" class="nav nav-pills nav-stacked">
+
+									<li 
+										% selected = ['','active'][selected_opt == 'MANUALE']
+										class="{{selected}} li_opt"
+									><a class="option" id="manuale">
+										<div class="col-md-12 firefox-margin-fix" style="padding-top:0;">
+											<div class="col-md-6 opt-name"><span data-i18n="app.mode.manual"></span></div> 
+											<div class="col-md-4 opt-name" style="">
+												<div class="sswitch sswitch-bckgnd" id="{{drain_val}}">
+													<div id="switch-on" >ON</div>
+													<div id="switch-off">OFF</div>
+													<div id="img-cont">
+														<img id="switch-img" src="{{static_file_path}}/images/switch.png">
+													</div>
+												</div>
+											</div>
+										</div>
+										</a></li>
+								%if draint!=None:
+									<li 
+										% selected = ['','active'][selected_opt == 'AUTOMATICA']
+										class="{{selected}} li_opt"
+									><a class="option" id="automatica"> 
+										<div class="col-md-12 firefox-margin-0 firefox-margin-fix"   style="padding-right: 0;">
+											<div class="col-md-6 opt-name"><span data-i18n="app.mode.automatic"></span></div> 
+											
+											<div class="col-md-6" style="padding: 0;">
+												<div class="col-md-2" style="padding: 0;">
+													<button id="minus_button" class="btn btn-default height-34" disabled>
+														<i class="glyphicon glyphicon-minus"></i>
+													</button>
+												</div>
+														
+												<div class="col-md-8" style="padding: 0;">
+													<div class="input-group" id="current_temp_input">
+														<input id="current_temp" type="text" value="{{temp_value}}" class="form-control" disabled> 
+														<span class="input-group-addon" id="unit">°C</span>
+													</div>
+												</div>
+													
+												<div class="col-md-2" style="padding: 0;">
+													<button id="plus_button" class="btn btn-default height-34" disabled>
+														<span class="glyphicon glyphicon-plus"></span>
+													</button>
+											</div>
+											</div>
+										</div> 
+									</a></li>
+								
+									<li
+										% selected = ['','active'][selected_opt == 'ORARIA']
+										class="{{selected}} li_opt"
+									><a class="option" id="oraria"> 
+										<div class="col-md-12 firefox-margin-0 firefox-margin-fix" style="padding-right: 0;">
+											<div class="col-md-6 opt-name"><span data-i18n="app.mode.time"></span></div> 
+											<div class="col-md-6 opt-name" style=" padding: 0; ">
+													<div class="button-container">
+														<button id="ora" class="btn btn-default" onclick="window.location='{{context_path}}timer/{{room_id}}'" disabled><span data-i18n="app.title.set_prog"></button>
+													</div>					
+											</div>
+										</div>
+									</a></li>
+								% end
+								</ul>
+								
+					
+					<div class="col-md-12 room-btn-container">
+					<div class="col-md-6"></div>
+						<div class="col-md-3"  style="padding-right: 0;">
+							<div class="button-container ">
+								<button id="reset" class="btn btn-default" disabled> <span data-i18n="app.action.cancel"></span> </button>
+							</div>
+						</div>
+					
+						<div class="col-md-3" style="padding-right: 0;">
+							<div class="button-container " >
+								<button id="confirm" class="btn btn-default" disabled><span data-i18n="app.action.confirm">  </span></button>
+							</div>
+						</div>
+					</div>
+				</div>
+				%end
+			</div>
+  	
+	</div>

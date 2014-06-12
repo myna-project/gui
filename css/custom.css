@@ -1,0 +1,930 @@
+/*******************************************************************************
+* Copyright (c) 2014 Proxima Centauri srl <info@proxima-centauri.it>.
+* All rights reserved. This program and the accompanying materials
+* are made available under the terms of the GNU Public License v3.0
+* which accompanies this distribution, and is available at
+* http://www.gnu.org/licenses/gpl.html
+*  
+* Contributors:
+*     Proxima Centauri srl <info@proxima-centauri.it> - initial API and implementation
+*******************************************************************************/
+
+@font-face {
+    font-family: TitilliumLight;
+    src: url("../fonts/TitilliumWeb-Light.ttf")
+}
+
+@font-face {
+    font-family: TitilliumBold;
+    src: url("../fonts/TitilliumWeb-Bold.ttf") 
+}
+
+/*-----------------------------------
+	RESET ALL
+-----------------------------------*/
+body, html{
+	padding:0;
+	margin:0;
+}
+
+/*-----------------------------------
+	FIREFOX HACKS - begin (MARGIN HACK FOR OPT ACTUALLY)
+-----------------------------------*/
+
+.firefox-margin-fix/* , x:-moz-any-link, x:default */ {
+    margin-top: -23px;
+}
+.firefox-margin-0/* , x:-moz-any-link, x:default */ {
+    margin-top: 0px;
+}
+
+/*-----------------------------------
+	FIREFOX HACKS - end
+-----------------------------------*/
+
+
+
+
+/*-----------------------------------
+	BEGIN - general
+-----------------------------------*/
+
+body{
+	background:#f9f9f9;
+}
+
+.container{
+	margin:0;
+	padding:0;
+	width:99%;
+}
+
+a{
+	color: #535353;
+}
+
+.cont-big{
+ 	font-family:TitilliumLight;
+ }
+ 
+ #switch-img{
+	margin-top: 3%;
+	margin-left: 3%;
+	width: 85%;
+ }
+
+ .sswitch{
+	width:170px; 
+	height:60px; 
+	display: inline-flex;
+	font-size: 34px; 
+	font-family: TitilliumBold; 
+	color: white;
+	background:#96BD0D;
+	margin-top:-10px;
+	margin-left: -8px;
+ }
+
+ .sswitch-bckgnd{
+	background:#E4342D;
+ }
+
+ .sswitch-dis-bckgnd{
+	background:#E6E6E6;
+ }
+ 
+ #on-off-slider
+ {
+ 	max-height: 50px !important;
+ }
+ 
+ .has-switch 
+ {
+ 	height: 35px !important;
+ }
+ 
+ .button-container
+ {
+ 	text-align:center;
+ }
+ 
+ #switch-on{
+	width: 50%;
+	position: absolute;
+	z-index: 4;
+	padding-left: 12px;
+	padding-top: 8px;
+ }
+
+ #switch-off{
+	width: 50%;
+	position: absolute;
+	z-index: 2;
+	padding-left: 100px;
+	padding-top: 8px;
+ }
+ 
+ .center 
+ {
+ 	text-align : center;
+ }
+ 
+.font30{
+	font-size: 30px !important;
+}
+
+.font27{
+	font-size: 27px !important;
+}
+
+.height100{
+	height:100%;
+}
+ 
+ 
+ .on-background
+ {
+ 	background-color : #FF7373;
+ }
+ 
+ .off-background
+ {
+ 	background-color: rgb(147, 221, 79);
+ }
+ 
+ .height-34
+ {
+ 	height: 34px;
+ }
+ 
+ h1, .h1, h2, .h2, h3, .h3{
+ 	margin-top: 14px;
+	margin-bottom: 14px;
+ }
+ 
+button:disabled, button[disabled=disabled]{
+	background:#EEE !important;
+    color:#333 !important;
+}
+
+#reset,#delete , #confirm, #submit,#edit-btn, #edit-btn-room, #reset-room{
+	 width: 100%;
+	 height: 58px;
+ 	 font-size: 20px; 
+ 	 font-family: TitilliumBold; 
+  	 color:white;
+  	 border-radius: 0px;
+ 	 border: 0;
+ }
+ 
+ #reset,#delete, #reset-room{
+	 background: #E4342D;
+ }
+ 
+ #confirm, #submit,#edit-btn, #edit-btn-room{
+	 background: #96BD0D;
+ }
+ 
+ #ora{
+	 width: 100%;
+	 height: 60px;
+	 margin-top: -10px;
+	 border-radius: 0;
+	 font-size: 24px;
+	 border:0;
+	 background:#006357;
+	 color:white;
+ } 
+
+
+.day{
+	width: 13%;
+	margin-left: 1px;
+	padding: 0;
+}
+
+ #img-cont{
+	width:50%; 
+	position:relative; 
+	z-index:55;
+ } 
+ 
+  .casella{
+	 margin: 3px;
+	 width:9%;
+ 	}
+ 	
+
+ 
+ /*-----------------------------------
+ 	END - general
+ -----------------------------------*/
+ 
+ 
+
+
+/*-----------------------------------
+	BEGIN - header and main menu
+-----------------------------------*/
+
+#header, #navigation_menu 
+{
+	text-align:center;
+}
+
+.navbar-default{ /*header*/
+	border-color: none;
+}
+
+.custom-icon{
+	width: 77%;
+}
+
+#header{
+	background:#1f2024;
+	border-style: solid;
+	border-bottom-color: grey;
+}
+
+.navbar {
+ 	border-radius: 0;
+ 	border-left: 0;
+ 	border-right:0;
+ 	border-top:0;
+}
+
+ ul#navigation_menu li {
+    width: 16%;
+ }
+
+ .nav>li>a.sidenavigation{
+	padding-top: 14px;
+	padding-bottom: 23px;
+ }
+ 
+ /*-----------------------------------
+	END - header and main menu
+ -----------------------------------*/
+ 
+ 
+ 
+ 
+/*-----------------------------------
+	BEGIN - side navigation of room
+-----------------------------------*/
+
+#graph_navigation{
+	height: 60px;
+	
+}
+
+.hr_ef{
+	padding:0;
+	margin-bottom: -2px;
+	height: 60px;
+}
+
+.hr-room{
+	margin-top: 0px;
+	margin-bottom: 0px;
+	border-top: 1px solid #BEBEBE;
+	width: 80%;
+}
+
+.nav-pills>li>a.hr_ef {
+	height:73px;
+}
+
+.name_r{ 
+	font-size: x-large;
+	padding-top: 2%;
+}
+
+.nav>li>a:hover, .nav>li>a:focus{
+	background:rgb(100, 100, 100);
+	border-radius:0px;
+	color:white;
+}
+
+.nav-stacked>li+li {
+	 margin-top: 0; 
+}
+
+ .nav-pills>li.active>a, .nav-pills>li.active>a:hover, .nav-pills>li.active>a:focus { /*quando attivo*/
+	 background-color: #009f95;    /*selezione*/
+	 border-radius: 0px;
+	 font-family: TitilliumBold;
+	 color:white;
+ }
+  
+ /* room navigation menu */
+ .roomnavigation{
+ 	text-align: center; 
+ 	font-family:TitilliumLight; 
+ 	font-size: 24px; 
+ 	padding: 0;
+ }
+ /*scrollbar*/
+ #scroll{
+ 	max-height: 320px;
+	overflow: auto;  
+	background:#f0f0f0; 
+	padding: 0px; 
+	margin-top: 5px;
+ }
+ 
+ /*-----------------------------------
+ 	END - side navigation of room
+ -----------------------------------*/
+
+ 
+ 
+ /*-----------------------------------
+ 	BEGIN - home page
+ -----------------------------------*/ 
+ #home-back > img, #home-next > img {
+ 	width: 95%;
+ }
+ 
+ .lista {
+ 	margin-top: 7%;
+ }
+ 
+ .room-overview > h4 {
+ 	font-size: 27px; 
+ 	margin-bottom: 15px; 
+ 	background:rgb(235, 235, 235); 
+ 	width:95%; 
+ 	height:50px; 
+ 	padding-top:11px; 
+ 	margin-left: 14px; 
+ 	text-align: center;
+ }
+ 
+ .room-overview, .room-selection
+ {
+	margin : 12px;
+	height: 200px;
+ }
+ 
+ #home-back, #home-next{
+	width: 100%;
+	height: 15%;
+	margin-top: 240px;
+	border: 0px;
+	background: none;
+ }
+ .room_div{
+ 	height: 35px;
+ }
+ /*-----------------------------------
+ 	END - home page
+ ----------------------------------- */
+ 
+ 
+ 
+ 
+ /*-----------------------------------
+ 	BEGIN - room selection page
+ -----------------------------------*/ 
+ #current-temp{
+ 	background:#ececed;
+ }
+ 
+ #img-cont{
+ 	width: 45%; 
+ 	position: relative; 
+ 	z-index: 55;
+ }
+ 
+ #temp-container h2{
+ 	height: 5%; 
+ 	padding-top: 4px; 
+ 	padding-left: 25px;
+ }
+ 
+ #current_temp_input{
+ 	margin-top: -10px; 
+ 	margin-right: -1px; 
+ 	border-radius: 0;
+ }
+ 
+ #unit{
+ 	border-radius: 0; 
+ 	font-size:24px; 
+ 	border:0;
+ }
+ 
+ .room-btn-container{
+ 	right: 0; 
+ 	position:absolute; 
+ 	width:100%; 
+ 	bottom:-100px;
+ }
+ 
+  .nav>li>a.option{
+	margin-left: 15px;
+	padding-left: 0px;
+	border-style: solid;
+	border-color: rgb(167, 167, 167);
+	border-width: 1px;
+	border-radius:0px;
+	margin-bottom: 2px;
+	padding-right: 0px;
+	height:60px;
+ }
+ 
+ /*add timer*/
+ .input-group-addon.add-form
+ {
+ 	cursor:pointer;
+ }
+ .input-group-addon.add-form span
+ {
+ 	display: inline-block;
+  	width: 16px;
+  	height: 16px;
+ }
+  #navigation_menu2>li{
+ 	height:60px;
+ 	//line-height: 30px; 
+ }
+
+ input#current_temp[disabled], 
+ input#current_tempT[disabled], 
+ input#current_max-temp[disabled], 
+ input#current_min-temp[disabled], 
+ input#current_temp-mail[disabled], 
+ input#current_temp-sms[disabled],
+ input#current_unable-mail[disabled],
+ input#current_unable-sms[disabled] {
+ 	background:#EEE;
+    color:#333;
+    border-color:#E6E6E6;
+ }
+ 
+ #minus_button, #plus_button{
+ 	height: 60px;
+	margin-top: -10px;
+	width: 100%;
+	border-radius:0;
+	border:0;
+	background:#006357;
+	color:white;
+ }
+ 
+ a.option {
+ 	background:white;
+ }
+ 
+ #current_temp{
+ 	height: 60px;
+ 	border-radius:0;
+ 	font-size: 33px;
+ 	text-align: center;
+ 	background:#009f95;
+	color:white;
+	border-left: 0;
+	border-top: 0;
+	border-bottom: 0;
+	border-color: #0D7C75;
+	border-width: 4px;
+ }
+ 
+  .column{
+ 	font-size: 24px;
+ 	color:#009f95;
+ }
+
+  .opt-name{
+ 	font-size: 24px;
+ 	/* margin-top: -23px; */
+ }
+ 
+ /*-----------------------------------
+ 	END - room selection page
+ -----------------------------------*/
+ 
+ 
+ 
+ 
+ /*-----------------------------------
+ 	BEGIN - timer page
+ -----------------------------------*/ 
+ .crud_button_container{
+ 	position:absolute; 
+ 	bottom: -100px; 
+ 	width:100%;
+ 	right:0;
+ }
+ 
+ .cancel-edit-btn-container{
+ 	position: absolute; 
+ 	bottom: -75px;
+ 	padding-right: 45px;
+ }
+ 
+ #plus_img {
+ 	position: absolute; 
+ 	width: 58px; 
+ 	margin-left: -31px;
+ }
+ 
+ .timer-edit-hour{
+	margin-top:0;
+ }
+ 
+ .timer-edit-hour input {
+ 	border-width:0px;
+ }
+ 
+ .timer-edit-hour .opt-name-timer, .opt-name-mail{
+ 	height: 100%; 
+ 	margin-top: 45px;
+ }
+ 
+ .timer-edit-hour .timer-cont{
+ 	height: 187px;
+ }
+ 
+ .config-temp-email{
+ 	height: 87px;
+ }
+ 
+ .timer-edit-hour .timer-title-big{
+ 	height: 75px;
+ }
+ 
+ .timer-edit-hour .timer-title-small{
+ 	padding-left: 0; 
+ 	text-align:center; 
+ 	font-size: 25px;
+ }
+ 
+ .timer-edit-temp .opt-name-timer{
+ 	padding-top:20px; 
+ }
+ 
+ .timer-edit-temp .timer-cont, .config-temp-mail, .config-temp-sms, .config-unable-mail, .config-unable-sms{
+ 	padding-top:8px; 
+ 	padding-bottom:8px;
+ 	margin-top: 8px
+ }
+ 
+ .timer-edit-days{
+ 	margin-top:30px;
+ }
+ 
+ .timer-edit-days .opt-name-timer{
+ 	padding-top:20px; 
+ }
+ 
+ .timer-edit-days .timer-cont{
+ 	padding-top: 8px; 
+ 	padding-bottom: 8px; 
+ 	margin-top: -8px;
+ }
+ 
+ #giorni > div {
+ 	display:inline-flex; 
+ 	height:65px; 
+ 	font-size:30px; 
+ 	padding:0; 
+ 	text-align:center;
+ }
+ 
+  #add-btn{
+	 width: 100%;
+	 height: 58px;
+ 	 font-size: 20px; 
+ 	 font-family: TitilliumBold; 
+  	 color:white;
+  	 border-radius: 0px;
+ 	 border: 0px;
+	 background: #1f2024;
+ }
+
+ .timer-edit{
+	height:7%;
+	margin-top:5%;
+ }
+
+ .input-groupT{
+	margin-right: -1; 
+	border-radius: 0;
+ }
+
+ .timer-cont, .config-temp-mail, .config-temp-sms, .config-unable-mail, .config-unable-sms{
+	background: white;
+	border-style: solid;
+	border-width: 1;
+	border-color: #C4C4C4;
+ }
+
+ .day-selected{
+ 	background: #009f95 !important;
+ 	color:white;
+ 	font-family:TitilliumBold;
+ }
+  .nav>li>a.logics{
+	padding-top: 8px;
+	padding-bottom: 47px;
+	padding-left: 0px;
+	border-style: solid;
+	border-color: rgb(167, 167, 167);
+	border-width: 1px;
+	border-radius:0px;
+	margin-bottom: 2px;
+	padding-right: 0px;
+	font-size: 24px;
+ }
+ 
+  #timer_navigation{
+ 	max-height: 320px;
+ 	height: 320px;
+	overflow: auto;
+ }
+ 
+ .dayT{
+	width: 14%;
+	margin-left: 1px;
+	padding: 0;
+	font-size:30px;
+	text-align:center;
+	background:white;
+	padding-top: 10px;
+ }
+ 
+ #minus_buttonT, #plus_buttonT, #minus_max-temp, #plus_max-temp, #minus_min-temp, #plus_min-temp{
+ 	height: 65px;
+	padding-top: -10px;
+	width: 100%;
+	border-radius:0;
+	border:0;
+	background:#006357;
+	color:white;
+ }
+ 
+ #current_tempT, #current_max-temp, #current_min-temp, #current_temp-mail, #current_temp-sms, #current_unable-mail, #current_unable-sms{
+ 	height: 65px;
+ 	border-radius:0px;
+ 	font-size: 33px;
+ 	text-align: center;
+ 	background:#009f95;
+	color:white;
+	border-left: 0px;
+	border-top: 0px;
+	border-bottom: 0px;
+	border-color: #0D7C75;
+	border-width: 4px;
+ }
+ 
+  .opt-name-timer, .opt-name-mail{
+ 	font-size: 24px;
+ 	text-align:right;
+ }
+ .column_tim{
+	font-size: 18px;
+	color: #009f95;
+}
+ /*-----------------------------------
+ 	END - timer page
+ -----------------------------------*/
+ 
+ 
+ 
+ 
+ /*-----------------------------------
+ 	BEGIN - graphs page
+ -----------------------------------*/ 
+ .grafico{
+ 	width: 100%; 
+ 	margin-bottom:4%;
+ }
+ 
+ #graph_button{
+ 	padding-left:0;
+ 	padding-right:0;
+ }
+ 
+ .graph_btn{
+ 	width: 100%;
+	margin: 5px;
+	margin-top: 30px;
+	height: 70px;
+	background: white;
+	font-size: large;
+	font-weight: bold;
+	font-family:TitilliumLight;
+ }
+ 
+ /*-----------------------------------
+ 	END - graphs page
+ -----------------------------------*/
+ 
+ 
+ 
+ 
+ /*-----------------------------------
+ 	BEGIN - cost page
+ -----------------------------------*/
+ .title{
+ 	font-size:xx-large; 
+ 	margin-bottom:10px;
+ }
+ 
+ .title ~ div {
+ 	display:inline-flex; 
+ 	position:absolute; 
+ 	width:90%
+ }
+ 
+ .unit_of_measure {
+ 	font-size:34px; 
+ 	padding-top: 57px; 
+ 	float:left
+ }
+ 
+ .number{
+	 font-size:65px;
+	 color:white;
+	 width: 80px;
+	 text-align: center;
+	 margin-left: 7px;
+	 font-family: monospace;
+	 background:#009f95;
+	 margin-top: 5px;
+	 padding-top: 10px;
+	 height:120px;
+ }
+ 
+ /*-----------------------------------
+ 	END - cost page
+ -----------------------------------*/
+ 
+ 
+ 
+ 
+ /*-----------------------------------
+ 	BEGIN - alerting page
+ -----------------------------------*/ 
+ #global_settings
+ {
+ 	width: 60%;
+	height: 58px;
+	font-size: 20px;
+	font-family: TitilliumBold;
+	color: white;
+	border-radius: 0px;
+	border: 0px;
+	background: #1f2024;	
+	margin:auto;
+	margin-bottom:20px;
+ }
+ 
+ #global_settings.active{
+ 	background-color: #009f95;
+}
+ 
+ #mail-alert-temp, #sms-alert-temp, #mail-alert-unable, #sms-alert-unable
+ {
+ 	font-size: 16px;
+ }
+ 
+ .nav>li>a.config
+ {
+	padding-top: 8px;
+	padding-bottom: 47px;
+	padding-left: 0px;
+	border-style: solid;
+	border-color: rgb(167, 167, 167);
+	border-width: 1px;
+	border-radius: 0px;
+	margin-bottom: 42px;
+	padding-right: 0px;
+	font-size: 24px;
+	height: 120px;
+}
+
+li.alerting>a.config{
+	height: 57px;
+}
+
+.isActive {
+	font-size: 24px;
+	padding-left: 8px;
+	padding-top:-10px;
+	padding-right: 10px;
+}
+
+input[type=radio]{
+	width:20px;
+	height:20px;
+}
+
+.small-img{
+	width: 50px;
+}
+
+.text_overflow{
+	height: 110px;
+	overflow: hidden;
+}
+
+/*-----------------------------------
+ 	END - alerting page
+ -----------------------------------*/
+ 
+ 
+ 
+ 
+ /*-----------------------------------
+ 	BEGIN - footer
+ -----------------------------------*/
+ #footer{
+ 	background:#1f2024;
+ 	height: 35px;
+ 	border-style:solid;
+ 	border-top-color:grey;
+ 	float:right;
+ }
+ 
+ #footer>.container>.row{
+ 	font-size: larger;
+	font-weight: bold;
+	margin-top: 6px;
+ }
+  /*-----------------------------------
+ 	END - footer
+ -----------------------------------*/
+ 
+ 
+ 
+ 
+ /* -----------------------------------
+IPAD LANDSCAPE + NETBOOK
+------------------------------------ */
+@media only screen and (max-width: 1200px) {
+	#term_img {
+		width:17%;
+		margin-top:-22%;
+		margin-left:83%;
+		position:relative;  
+	}
+	
+	#current-temp{
+		margin-top: 5%; 
+		margin-bottom: 6%; 
+		height: 3%; 
+		position: relative; 
+		width: 85%;
+		margin-left: 1%;
+		z-index:22;
+	}
+}
+
+/* -----------------------------------
+DESKTOP
+------------------------------------ */
+@media only screen and (min-width: 1200px) {
+	#term_img {
+		width:12%;
+		top:0;
+		right:60px;
+		position:absolute;  
+	}
+	#current-temp{
+		top: 50px; 
+		height: 60px; 
+		position: absolute; 
+		width: 85%; 
+		z-index:20;
+	}
+	
+	#temp-container{
+		position:relative;
+		height: 170px;
+	}
+}
+
+/* Portrait */
+@media screen and (orientation:portrait) {
+   #app {
+   		display:none;
+   }
+   #portrait_message{
+    	visibility:visible;
+    	text-align: center;
+    	margin-top:200px;
+    }
+
+}
+/* Landscape */
+@media screen and (orientation:landscape) {
+    #portrait_message{
+    	display:none;
+    }
+    #app{
+   		visibility: visible;
+   }
+}

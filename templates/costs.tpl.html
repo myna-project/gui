@@ -1,0 +1,51 @@
+<!-- ***************************************************************************
+*Copyright (c) 2014 Proxima Centauri srl <info@proxima-centauri.it>.
+* All rights reserved. This program and the accompanying materials
+* are made available under the terms of the GNU Public License v3.0
+* which accompanies this distribution, and is available at
+* http://www.gnu.org/licenses/gpl.html
+*  
+* Contributors:
+*     Proxima Centauri srl <info@proxima-centauri.it> - initial API and implementation
+**************************************************************************** -->
+% selected_nav='COSTI'
+<div class="row" style="margin-left: 5%;">
+		
+		<div class="col-md-12">
+		<div class="row">
+			<div class="col-md-12" id=calore_consumato>
+				<div class="title"> <span data-i18n="app.title.cons_heat"></span> </div>
+				<div>
+				<div class="col-md-1 number">0</div>
+				<div class="col-md-1 number">0</div>
+				<div class="col-md-1 number">1</div>
+				<div class="col-md-1 number">1</div>
+				<div class="col-md-1 number">0</div>
+				<div class="col-md-1 number">4</div>
+				<div class="col-md-1 number">3</div>
+				<div class="col-md-1 unit_of_measure">KWh</div></div>
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-md-12" id="costo_stimato" style="margin-top:210px;">
+				<div class="title"> <span data-i18n="app.title.est_cost"></span></div>
+				<div>
+				<div class="col-md-1 number">1</div>
+				<div class="col-md-1 number">0</div>
+				<div class="col-md-1 number">4</div>
+				<div class="col-md-1 number">9</div>
+				<div class="col-md-1" style="font-size:50px; padding-top: 57px; text-align: center;">,</div>
+				<div class="col-md-1 number">0</div>
+				<div class="col-md-1 number">9</div>
+				<div class="col-md-1 unit_of_measure">€</div></div>
+			</div>
+		</div>
+			
+			
+		</div>
+		
+
+	</div>
+	
+%rebase layout.tpl.html custom='costs', static_file_path=static_file_path, api_path=api_path,context_path=context_path,graph_path=graph_path,selected_nav=selected_nav

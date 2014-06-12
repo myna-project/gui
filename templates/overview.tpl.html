@@ -1,0 +1,103 @@
+<!-- ***************************************************************************
+*Copyright (c) 2014 Proxima Centauri srl <info@proxima-centauri.it>.
+* All rights reserved. This program and the accompanying materials
+* are made available under the terms of the GNU Public License v3.0
+* which accompanies this distribution, and is available at
+* http://www.gnu.org/licenses/gpl.html
+*  
+* Contributors:
+*     Proxima Centauri srl <info@proxima-centauri.it> - initial API and implementation
+**************************************************************************** -->
+%import json
+%import urllib2 
+
+<div class="row room-overview" id="{{rooms['id']}}" >
+% tmp = rooms['name'].upper()
+% if tmp=="":
+%	tmp = rooms['id']
+% end
+			<h4> {{tmp}} </h4>
+	
+			% drains=None
+			% drain_v=None
+			% if len(rooms['devices'])>=1:
+				% for d in rooms['devices']:
+					% device_detail = json.loads(urllib2.urlopen(url_status+'/'+d).read()) 
+					% if device_detail['type']=="Temperature":
+						% drains = d
+					% elif 	device_detail['type']=="OnOff":
+						% drain_v= d			
+					% end
+			
+				% end
+				
+				% if drain_v!=None:
+				<div class="col-md-7" id="{{drain_v}}">
+					<div class="sswitch sswitch-bckgnd" id="{{rooms['id']}}_s">
+						<div id="switch-on">ON</div>
+						<div id="switch-off">OFF</div>
+						<div id="img-cont">
+							<img id="switch-img" src="{{static_file_path}}/images/switch.png">
+						</div>
+					</div>
+				</div>
+			% else: 
+					%if drains!=None:
+					<div class="col-md-7" style="margin-top: 4; ">
+						<h4><span data-i18n="app.title.temperature"></span> : </h4>
+					</div>
+					%end
+				
+			% end
+	
+	
+	
+	<div class="col-md-5">
+		% draint=None
+		% enabled = False
+		% manuale = ''
+		% for dr in rooms['devices']:
+			% device_detail = json.loads(urllib2.urlopen(url_status+'/'+dr).read()) 
+			% if device_detail['type']=="Temperature":
+				
+				% draint = dr	
+				
+				%if device_detail['value']>=9999:
+					<h4> ND °C </h4>
+				%else:
+					<h4> {{round(device_detail['value'],1)}} °C </h4>
+				%end	
+			% elif device_detail['type']=="OnOff":
+				% drainv = dr
+				
+				% try:
+        			% response = urllib2.urlopen(url_logics+'?filterByRoom='+rooms['id'])
+    	    		% logics_detail = json.loads(response.read())
+    			% except urllib2.HTTPError:
+        			% logics_detail = 'Error'
+				% end
+				
+				% if 'Error' is not logics_detail:
+					% for l in logics_detail['logics']:
+						% if l['enabled']:
+							% enabled=True
+							% if 'ThresholdTemperature' in l['type']:
+								<h4 id="mode_{{rooms['id']}}" ><span data-i18n="app.mode.automatic"></span></h4>
+							% elif 'TimeProgramming' in l['type']:
+								<h4 id="mode_{{rooms['id']}}" ><span data-i18n="app.mode.time"></span></h4>
+							% end
+						% end
+					% end
+					% if False is enabled:
+						% manuale='Manual'
+						<h4 id="mode_{{rooms['id']}}" ><span data-i18n="app.mode.manual"></span></h4>
+					% end
+				% else:
+					<h4 id="mode_{{rooms['id']}}" ><span data-i18n="app.message.unavailable_config"></span></h4>
+				% end	
+			% end
+		% end
+		
+
+	</div>
+</div>

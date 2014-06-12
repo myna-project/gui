@@ -1,0 +1,68 @@
+{
+	"app" : {
+		"action" : {
+			"edit": "EDIT",
+			"cancel" : "CANCEL",
+			"reset" : "RESET",
+			"confirm" : "CONFIRM",
+			"delete":"DELETE",
+			"add" : "ADD",
+			"last_week" : "LAST WEEK",
+			"last_month":"LAST MONTH",
+			"last_year" : "LAST YEAR",
+			"last_day" : "LAST 24 HOURS"
+		},
+		"mode": {
+			"manual" : "Manual",
+			"automatic" : "Automatic",
+			"time" : "Time prog."
+		},
+		"title": {
+			"temperature" : "Temperature",
+			"programming" : "Programming",
+			"setting" : "Setting",
+			"start" : "Start",
+			"end" :"End",
+			"days" : "Days",
+			"cons_heat" : "Consumed heat",
+			"est_cost" : "Estimated cost",
+			"min" : "MIN",
+			"max" : "MAX",
+			"email" : "EMAIL",
+			"mobile" : "MOBILE",
+			"enabled" : "ENABLED",
+			"disabled" : "DISABLED",
+			"temp" : "TEMPERATURE",
+			"temp_sets" : "TEMPERATURE ALERTING SETS",
+			"edit_temp_sets" : "EDIT TEMPERATURE SETS",
+			"unable_sets" : "BREAKDOWN ALERTING SETS",
+			"edit_unable_sets" : "EDIT BREAKDOWN SETS",
+			"glob_sets" : "GLOBAL SETTINGS", 
+			"room_sel" : "ROOM SELECTION",
+			"min_temp" : "Min temperature",
+			"max_temp" : "Max temperature",
+			"hour": "hour",
+			"minutes" : "minutes",
+			"current_temp": "Current temperature",
+			"set_prog" : "Set programming"
+		},
+		"days" : {
+			"sun" : "S",
+			"mon" : "M",
+			"tue" : "T",
+			"wed" : "W",
+			"thu" : "T",
+			"fri" : "F",
+			"sat" : "S"
+		},
+		"message" : {
+			"unavailable_graph" : "Grapsh are not available",
+			"unavailable_room_config" : "Rooms configuration is currently not available",
+			"unavailable_config" : "Regulation not available",
+			"unavailable_logic_details" : "Logics details are currently not available",
+			"unavailable_device_details" : "Devices details are currently not available",
+			"unavailable_room_details" : "Rooms details are currently not available",
+			"no_valves" : "No valves are present in this room!"
+		}
+	}
+}

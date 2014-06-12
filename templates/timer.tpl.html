@@ -1,0 +1,361 @@
+<!-- ***************************************************************************
+*Copyright (c) 2014 Proxima Centauri srl <info@proxima-centauri.it>.
+* All rights reserved. This program and the accompanying materials
+* are made available under the terms of the GNU Public License v3.0
+* which accompanies this distribution, and is available at
+* http://www.gnu.org/licenses/gpl.html
+*  
+* Contributors:
+*     Proxima Centauri srl <info@proxima-centauri.it> - initial API and implementation
+**************************************************************************** -->
+
+% import json
+% import urllib2 
+% selected_nav='TIMER'
+<div class="row">		
+		<div class="col-md-12">
+		% if 'Error' is not map:
+		<div class="col-md-3 roomnavigation">
+			<span data-i18n="app.title.room_sel"></span>
+				<div class="col-md-12" id="scroll">
+					<ul id="" class="nav nav-pills nav-stacked">
+						% for room in map['maps']:	
+							% include roomnavigation.tpl.html selectedg_nav=room_id, room=room
+						%end
+			 		</ul>
+			</div>
+		</div>
+		
+		
+		<!-- devo controllare i tipi di device, se non c'è device con valvova, allora qui non si può fare niente! -->
+		%vlv_present = 'false'
+		
+		% try:
+			% response = urllib2.urlopen(url_maps+'/'+room_id)
+			% room_detail = json.loads(response.read()) 
+		% except urllib2.HTTPError:
+			% room_detail = 'Error'
+		% end
+		
+		% if 'Error' is not room_detail:
+				
+			% for d in room_detail['devices']:
+			
+				% try:
+					% response = urllib2.urlopen(url_status+'/'+d)
+					% device_detail = json.loads(response.read()) 
+				% except urllib2.HTTPError:
+					% device_detail = 'Error'
+				% end
+				
+				% if 'Error' is not device_detail:
+				
+				
+					% if device_detail['type'] == 'OnOff':
+						% vlv_present = 'true'
+					% end
+				
+				% else:
+					<div> <h2 align="center"><span data-i18n="app.message.unavailable_device_details"></span></h2></div>
+					% break
+				% end
+			% end
+		
+		% if 'Error' is not device_detail:
+			% if vlv_present == 'true':
+				% if operation == '' :
+				
+					
+					<div class="col-md-9 cont-big">
+					
+					<!-- tabella con i programmi esistenti -->
+					
+						<div class="col-md-12">
+		
+							<div class="col-md-12" style="padding-left: 0; margin-bottom: 15px; text-align:center;">
+								<div class="col-md-2 column_tim"><span data-i18n="app.title.start"></span></div>
+								<div class="col-md-2 column_tim"><span data-i18n="app.title.end"></span></div>
+								<div class="col-md-3 column_tim"><span data-i18n="app.title.temp"></span></div>
+								<div class="col-md-5 column_tim"><span data-i18n="app.title.days"></span></div>
+							</div>
+		
+							<div class="col-md-12" style="padding-left: 0px; text-align:center;">
+		
+								<!--  leggo il file json  -->
+								% selected_timer=""
+								
+								% try:
+									% response = urllib2.urlopen(url_logics+'?filterByRoom='+room_id)
+									% logics_detail = json.loads(response.read()) 
+								% except urllib2.HTTPError:
+									% logics_detail = 'Error'
+								% end
+								
+								
+								% if 'Error' is not logics_detail:
+									% for l in logics_detail['logics']:
+										% if l['type'] == 'TimeProgramming':
+										<ul id="timer_navigation" class="nav nav-pills nav-stacked">
+											% i=0
+											% for time in l['time']:
+											<li 
+															%selected=[ '','active'][selected_timer=='{{l["id"]}}'] 
+															
+															class="{{selected}} timer_sel">
+															
+															<a class="logics" id="{{l['id']}}_{{i}}">
+																<div class="col-md-2">{{time['start']}}</div>
+																<div class="col-md-2">{{time['stop']}}</div>
+																<div class="col-md-3">{{time['temp']['value']}} °C</div>
+																<div class="col-md-5" style="display: inline-flex;">
+																	<div class="col-md-1 day" id="Monday"><span data-i18n="app.days.mon"></span></div>
+																	<div class="col-md-1 day" id="Tuesday"><span data-i18n="app.days.tue"></span></div>
+																	<div class="col-md-1 day" id="Wednesday"><span data-i18n="app.days.wed"></span></div>
+																	<div class="col-md-1 day" id="Thursday"><span data-i18n="app.days.thu"></span></div>
+																	<div class="col-md-1 day" id="Friday"><span data-i18n="app.days.fri"></span></div>
+																	<div class="col-md-1 day" id="Saturday"><span data-i18n="app.days.sat"></span></div>
+																	<div class="col-md-1 day" id="Sunday"><span data-i18n="app.days.sun"></span></div>
+								
+																</div> 
+								
+														</a></li>
+													%i += 1
+												% end 
+												</ul>
+										% end
+									% end
+								
+								% else:
+									<div><h2 align="center"> <span data-i18n="app.message.unavailable_device_details"></span></h2></div>
+								% end
+								
+							
+							</div>
+		
+		
+							<div class="col-md-12 crud_button_container">
+								<div class="col-md-2"></div>
+								<div class="col-md-3" style="padding-right: 0;">
+									<img src="{{static_file_path}}/images/add.png" id="plus_img">
+									<button id="add-btn" ><span data-i18n="app.action.add"></span></button></div>
+								<div class="col-md-1"></div>
+								<div class="col-md-3" style="padding-right: 0;">
+									<button id="edit-btn" disabled><span data-i18n="app.action.edit"></span></button></div>
+								<div class="col-md-3" style="padding-right: 0;">
+									<button id="delete" disabled><span data-i18n="app.action.delete"></span></button></div>
+							</div>
+		
+						</div>
+		
+		
+						% elif (operation == 'add') or (operation == 'edit'):
+							% if operation == 'add':
+								% title = "NEW"
+							% end
+							% if operation == 'edit':
+								% title = "EDIT"
+							% end
+				<div class="col-md-9 cont-big">
+						<div class="col-md-12 column" style="text-align:right">{{title}} TIME PROGRAMMING</div>
+					
+						<div class="col-md-12 timer-edit-hour">
+							<div class="col-lg-offset-3 col-lg-3 col-md-3 opt-name-timer">
+								<div class="col-md-12 timer-title-big"><span data-i18n="app.title.start"></span></div>
+								<div class="col-md-12 timer-title-big"><span data-i18n="app.title.end"></span></div></div>
+							<div class="col-lg-6 col-md-9 timer-cont">
+								<div class="col-md-6 timer-title-small"><span data-i18n="app.title.hour"></span></div>
+								<div class="col-md-6 timer-title-small"><span data-i18n="app.title.minutes"></span></div>
+								
+								<div class="col-md-6 impostazioni" id="ora-inizio" style="height: 75px; padding: 0;">
+									<div class="col-md-12" style=" padding-left: 0;">
+										<div class="col-md-3" style="padding: 0;">
+											<div class="click-listener" style="position:absolute; left:0; right:0; top:0; bottom:0; cursor: pointer; z-index:50;" ></div>
+											<button class="min-hour" id="minus_buttonT" class="btn btn-default height-34" disabled="">
+												<i class="glyphicon glyphicon-minus"></i>
+											</button>
+										</div>
+													
+										<div class="col-md-6" style="padding: 0;">
+											<div class="input-groupT">
+												<div class="click-listener" style="position:absolute; left:0; right:0; top:0; bottom:0; cursor: pointer; z-index:50;" ></div>
+												<input id="current_tempT" type="text" value="13" class="form-control" disabled=""> 
+											</div>
+										</div>
+												
+										<div class="col-md-3" style="padding: 0;">
+											<div class="click-listener" style="position:absolute; left:0; right:0; top:0; bottom:0; cursor: pointer; z-index:50;" ></div>
+											<button class="plus-hour" id="plus_buttonT" class="btn btn-default height-34" disabled="">
+												<span class="glyphicon glyphicon-plus"></span>
+											</button>
+										</div>
+									</div>
+								</div>
+								<div class="col-md-6 impostazioni" id="minuti-inizio" style="height: 75px; padding: 0;">
+									<div class="col-md-12" style="padding-right: 0;">
+										<div class="col-md-3" style="padding: 0;">
+											<div class="click-listener" style="position:absolute; left:0; right:0; top:0; bottom:0; cursor: pointer; z-index:50;" ></div>
+											<button class="min-minute" id="minus_buttonT" class="btn btn-default height-34" disabled="">
+												<i class="glyphicon glyphicon-minus"></i>
+											</button>
+										</div>
+													
+										<div class="col-md-6" style="padding: 0;">
+											<div class="click-listener" style="position:absolute; left:0; right:0; top:0; bottom:0; cursor: pointer; z-index:50;" ></div>
+											<div class="input-groupT">
+												<input id="current_tempT" type="text" value="00" class="form-control" disabled=""> 
+											</div>
+										</div>
+												
+										<div class="col-md-3" style="padding: 0;">
+											<div class="click-listener" style="position:absolute; left:0; right:0; top:0; bottom:0; cursor: pointer; z-index:50;" ></div>
+											<button  class="plus-minute" id="plus_buttonT" class="btn btn-default height-34" disabled="">
+												<span class="glyphicon glyphicon-plus"></span>
+											</button>
+										</div>
+									</div>
+								</div>
+								<div class="col-md-6 impostazioni" id="ora-fine" style="height: 75px; padding: 0;">
+									<div class="col-md-12" style=" padding-left: 0;">
+										<div class="col-md-3" style="padding: 0;">
+											<div class="click-listener" style="position:absolute; left:0; right:0; top:0; bottom:0; cursor: pointer; z-index:50;" ></div>
+											<button class="min-hour" id="minus_buttonT" class="btn btn-default height-34" disabled="">
+												<i class="glyphicon glyphicon-minus"></i>
+											</button>
+										</div>
+													
+										<div class="col-md-6" style="padding: 0;">
+											<div class="click-listener" style="position:absolute; left:0; right:0; top:0; bottom:0; cursor: pointer; z-index:50;" ></div>
+											<div class="input-groupT">
+												<input id="current_tempT" type="text" value="13" class="form-control" disabled="" > 
+											</div>
+										</div>
+												
+										<div class="col-md-3" style="padding: 0;">
+											<div class="click-listener" style="position:absolute; left:0; right:0; top:0; bottom:0; cursor: pointer; z-index:50;" ></div>
+											<button class="plus-hour" id="plus_buttonT" class="btn btn-default height-34" disabled="">
+												<span class="glyphicon glyphicon-plus"></span>
+											</button>
+										</div>
+									</div>
+								</div>
+								<div class="col-md-6 impostazioni" id="minuti-fine" style="height: 75px; padding: 0;">
+									<div class="col-md-12" style="padding-right: 0;">
+										<div class="col-md-3" style="padding: 0;">
+											<div class="click-listener" style="position:absolute; left:0; right:0; top:0; bottom:0; cursor: pointer; z-index:50;" ></div>
+											<button class="min-minute" id="minus_buttonT" class="btn btn-default height-34" disabled="">
+												<i class="glyphicon glyphicon-minus"></i>
+											</button>
+										</div>
+													
+										<div class="col-md-6" style="padding: 0;">
+											<div class="click-listener" style="position:absolute; left:0; right:0; top:0; bottom:0; cursor: pointer; z-index:50;" ></div>
+											<div class="input-groupT">
+												<input id="current_tempT" type="text" value="00" class="form-control" disabled="" > 
+											</div>
+										</div>
+												
+										<div class="col-md-3" style="padding: 0;">
+											<div class="click-listener" style="position:absolute; left:0; right:0; top:0; bottom:0; cursor: pointer; z-index:50;" ></div>
+											<button class="plus-minute" id="plus_buttonT" class="btn btn-default height-34" disabled="">
+												<span class="glyphicon glyphicon-plus"></span>
+											</button>
+										</div>
+									</div>
+								</div>
+							</div>
+		    			</div>
+						<div class="col-md-12 timer-edit-temp">
+							<div class="col-lg-offset-3 col-lg-3 col-md-3 opt-name-timer"><span data-i18n="app.title.temp"></span></div>
+							<div class="col-lg-6 col-md-9 timer-cont" id="temperatura">
+								<div class="col-md-2" style="padding: 0;">
+									<div class="click-listener" style="position:absolute; left:0; right:0; top:0; bottom:0; cursor: pointer; z-index:50;" ></div>
+									<button id="minus_buttonT" class="btn btn-default height-34" disabled>
+										<i class="glyphicon glyphicon-minus"></i>
+									</button>
+								</div>
+											
+								<div class="col-md-8" style="padding: 0;">
+									<div class="input-group" style="margin-right:-1;">
+										<div class="click-listener" style="position:absolute; left:0; right:0; top:0; bottom:0; cursor: pointer; z-index:50;" ></div>
+										<input id="current_tempT" type="text" value="20"class="form-control" disabled> 
+										<span class="input-group-addon" id="unit" style="border-radius: 0px; font-size:33px; border:0px;">°C</span>
+									</div>
+								</div>
+										
+								<div class="col-md-2" style="padding: 0;">
+									<div class="click-listener" style="position:absolute; left:0; right:0; top:0; bottom:0; cursor: pointer; z-index:50;" ></div>
+									<button id="plus_buttonT" class="btn btn-default height-34" disabled>
+										<span class="glyphicon glyphicon-plus"></span>
+									</button>
+								</div>
+							</div>
+		    				
+						</div>
+						<div class="col-md-12 timer-edit-days">
+							<div class="col-lg-offset-3 col-lg-3 col-md-3 opt-name-timer"><span data-i18n="app.title.days"></span></div>
+						
+							<div class="col-lg-6 col-md-9 timer-cont" id="giorni">
+								
+								<div class="col-md-12">
+									<div class="col-md-1 dayT" id="Monday"><span data-i18n="app.days.mon"></span></div>
+									<div class="col-md-1 dayT" id="Tuesday"><span data-i18n="app.days.tue"></span></div>
+									<div class="col-md-1 dayT" id="Wednesday"><span data-i18n="app.days.wed"></span></div>
+									<div class="col-md-1 dayT" id="Thursday"><span data-i18n="app.days.thu"></span></div>
+									<div class="col-md-1 dayT" id="Friday"><span data-i18n="app.days.fri"></span></div>
+									<div class="col-md-1 dayT" id="Saturday"><span data-i18n="app.days.sat"></span></div>
+									<div class="col-md-1 dayT" id="Sunday"><span data-i18n="app.days.sun"></span></div>
+		
+								</div> 
+		  					</div>
+		  				</div>
+						
+					
+					<div class="col-md-12 cancel-edit-btn-container" >
+						<div class="col-md-2"></div>
+						<div class="col-md-3" style="padding-right: 0;"></div>
+						<div class="col-md-1"></div>
+						<div class="col-md-3" style="padding-left: 0;">
+							<button id="reset"><span data-i18n="app.action.cancel"></span></button></div>
+						<div class="col-md-3" style="padding: 0;">
+							<button id="submit" disabled><span data-i18n="app.action.confirm"></span></button></div>
+					</div>
+					
+					</div>
+				
+				% elif operation == 'delete' :
+					<div class="page-header">
+						<h3>Delete time program</h3>
+					</div>
+					
+					<h4>Delete time progra</h4>
+					
+					<button id="delete" class="btn btn-primary"><span data-i18n="app.action.delete"></span> </button>
+					<a href="/timer" class="btn btn-primary">Back to list</a>
+				% end 
+			% else:
+				<div class="row">
+					<div class="col-md-5 col-md-offset-2">
+						<h4> <span data-i18n="app.message.no_valves"></span></h4>
+					</div>
+				</div>
+			% end
+				
+					
+					
+					
+					</div>
+		% end
+		% else:
+			<div>
+				<h2 align="center"><span data-i18n="app.message.unavailable_room_config"></span></h2>
+			</div>
+		% end
+		</div>
+		% else:
+			<div>
+				<h2 align="center"><span data-i18n="app.message.unavailable_room_config"></span></h2>
+			</div>
+		% end
+  </div>
+  
+  %rebase layout.tpl.html custom='timer',static_file_path=static_file_path,api_path=api_path,context_path=context_path,graph_path=graph_path,selected_nav=selected_nav

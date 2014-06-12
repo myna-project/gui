@@ -1,0 +1,48 @@
+<!-- ***************************************************************************
+*Copyright (c) 2014 Proxima Centauri srl <info@proxima-centauri.it>.
+* All rights reserved. This program and the accompanying materials
+* are made available under the terms of the GNU Public License v3.0
+* which accompanies this distribution, and is available at
+* http://www.gnu.org/licenses/gpl.html
+*  
+* Contributors:
+*     Proxima Centauri srl <info@proxima-centauri.it> - initial API and implementation
+**************************************************************************** -->
+<ul id="navigation_menu" class="nav nav-pills">
+
+	<li 
+		% selected = ['','active'][selected_nav == 'HOME']
+		class={{selected}}
+	><a href="{{context_path}}" class="sidenavigation"> <img class="custom-icon"
+			src="{{static_file_path}}/images/home.png" alt="STANZE"></a></li>
+
+	<li 
+		% selected = ['','active'][selected_nav == 'STANZE']
+		class={{selected}}
+	><a href="{{context_path}}room_selection" class="sidenavigation"> <img class="custom-icon"
+			src="{{static_file_path}}/images/rooms.png" alt="STANZE"></a></li>
+
+	<li
+		% selected = ['','active'][selected_nav == 'TIMER']
+		class={{selected}}
+	><a href="{{context_path}}timer" class="sidenavigation"> <img class="custom-icon"
+			src="{{static_file_path}}/images/timer.png" alt="TIMER"></a></li>
+
+	<li
+		% selected = ['','active'][selected_nav == 'ANDAMENTI']
+		class={{selected}}
+	><a href="{{context_path}}graphs" class="sidenavigation"> <img class="custom-icon"
+			src="{{static_file_path}}/images/graphs.png" alt="ANDAMENTI"></a></li>
+
+	<li
+		% selected = ['','active'][selected_nav == 'COSTI']
+		class={{selected}}
+	><a href="{{context_path}}costs" class="sidenavigation"> <img class="custom-icon"
+			src="{{static_file_path}}/images/costs.png" alt="COSTI"></a></li>
+
+	<li
+		% selected = ['','active'][selected_nav == 'ALERTING']
+		class={{selected}}
+	><a href="{{context_path}}alerting"class="sidenavigation"> <img class="custom-icon"
+			src="{{static_file_path}}/images/alerting.png" alt="ALERTING"></a></li>
+</ul>

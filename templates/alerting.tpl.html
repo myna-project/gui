@@ -1,0 +1,371 @@
+<!-- ***************************************************************************
+*Copyright (c) 2014 Proxima Centauri srl <info@proxima-centauri.it>.
+* All rights reserved. This program and the accompanying materials
+* are made available under the terms of the GNU Public License v3.0
+* which accompanies this distribution, and is available at
+* http://www.gnu.org/licenses/gpl.html
+*  
+* Contributors:
+*     Proxima Centauri srl <info@proxima-centauri.it> - initial API and implementation
+**************************************************************************** -->
+% import json
+% import urllib2 
+% selected_nav='ALERTING'
+<div class="row">
+	<div class="col-md-12">
+		% if 'Error' is not map	:
+		<div class="col-md-3 roomnavigation">
+			<div class="row"> 
+				<div class="button-container ">
+					<button id="global_settings"><span data-i18n="app.title.glob_sets"></span></button>
+				</div>
+			</div>
+			
+			<span data-i18n="app.title.room_sel"></span>
+			
+			<div class="col-md-12" id="scroll">
+					<ul id="" class="nav nav-pills nav-stacked">
+						% for room in map['maps']:	
+							% include graphnavigation.tpl.html selectedg_nav=room_id, room=room, context_path=context_path, deviceStatus=deviceStatus
+						%end
+			 		</ul>
+			</div>
+		
+		</div>
+		% end
+		
+		<!-- contenitore -->
+		<div class="col-md-9 cont-big">
+		
+		% if '' is operation: 
+			
+			% if room_id=='global_settings': 
+			
+			<div class="col-md-12 column" style="text-align:right"><span data-i18n="app.title.temp_sets"></span></div>
+			<div class="col-md-12" style="padding-left: 0; text-align:center;">
+				<div class="col-md-2 column_tim"><span data-i18n="app.title.min"></span></div>
+				<div class="col-md-2 column_tim"><span data-i18n="app.title.max"></span></div>
+				<div class="col-md-3 column_tim"><span data-i18n="app.title.email"></span></div>
+				<div class="col-md-3 column_tim"><span data-i18n="app.title.mobile"></span></div>
+				<div class="col-md-2 column_tim"><span data-i18n="app.title.enabled"></span></div>
+			</div>
+			<div class="col-md-12" style="padding-left: 0px; text-align:center;">
+				<ul class="nav nav-pills nav-stacked"> 
+					<li class="config_sel" id="temp-{{room_id}}">
+						<a class="config" id="">
+							<div class="col-md-2"> <span id="min-alert-temp"> -- </span> °C</div>
+							<div class="col-md-2"> <span id="max-alert-temp"> -- </span> °C</div>
+							<div class="col-md-3"> <div class="text_overflow" id="mail-alert-temp"> -- </div></div>
+							<div class="col-md-3" > <div class="text_overflow"  id="sms-alert-temp"> -- </div></div> 
+							<div class="col-md-2" > <div id="enable-alert-temp"> <img class="small-img" alt="" src=""/> </div></div>
+						</a>
+					</li>
+				</ul>
+			</div>
+			
+			<div class="col-md-12 column" style="text-align:right"><span data-i18n="app.title.unable_sets"></span></div>
+			<div class="col-md-12" style="padding-left: 0; text-align:center;">
+				<div class="col-md-5 column_tim"><span data-i18n="app.title.email"></span></div>
+				<div class="col-md-5 column_tim"><span data-i18n="app.title.mobile"></span></div>
+				<div class="col-md-2 column_tim"><span data-i18n="app.title.enabled"></span></div>
+			</div>
+			<div class="col-md-12" style="padding-left: 0px; text-align:center;">
+				<ul class="nav nav-pills nav-stacked"> 
+					<li class="config_sel" id="unable-{{room_id}}">
+						<a class="config" id="">
+							<div class="col-md-5"> <div class="text_overflow" id="mail-alert-unable"> -- </div></div>
+							<div class="col-md-5" > <div class="text_overflow" id="sms-alert-unable"> -- </div></div> 
+							<div class="col-md-2" > <span id="enable-alert-unable"><img class="small-img" alt="" src=""/></span></div>
+						</a>
+					</li>
+				</ul>
+			</div>
+			
+			<div class="col-md-12 crud_button_container">
+				<div class="col-md-5"></div>
+				<div class="col-md-1"></div>
+				<div class="col-md-offset-3 col-md-3" style="padding-right: 0;">
+					<button id="edit-btn" disabled><span data-i18n="app.action.edit"></span></button></div>
+			</div>
+			% else:
+				<div class="col-md-12 column" style="text-align:right"><span data-i18n="app.title.temp_sets"></span></div>
+			<div class="col-md-12" style="padding-left: 0; text-align:center;">
+				<div class="col-md-6 column_tim"><span data-i18n="app.title.min"></span></div>
+				<div class="col-md-6 column_tim"><span data-i18n="app.title.max"></span></div>
+			</div>
+			<div class="col-md-12" style="padding-left: 0px; text-align:center;">
+				<ul class="nav nav-pills nav-stacked"> 
+					<li class="config_sel alerting" id="room-{{room_id}}">
+						<a class="config" id="">
+							<div class="col-md-6"> <span id="min-alert-temp"> -- </span> °C</div>
+							<div class="col-md-6"> <span id="max-alert-temp"> -- </span> °C</div>
+						</a>
+					</li>
+				</ul>
+			</div>
+			
+			<div class="col-md-12 crud_button_container">
+				<div class="col-md-5"></div>
+				<div class="col-md-1"></div>
+				<div class="col-md-3" style="padding-right: 0;">
+					<button id="edit-btn" disabled><span data-i18n="app.action.edit"></span></button></div>
+				<div class="col-md-3" style="padding-right: 0;">
+					<button id="reset" disabled><span data-i18n="app.action.reset"></span></button></div>
+			</div>
+			
+			% end
+		% elif 'edit' is operation:
+			
+			% if config == 'temp':
+				<!-- get config_data -->
+				% if 'Error' is not config_data:
+					
+				<div class="col-md-12 column" style="text-align:right"><span data-i18n="app.title.edit_temp_sets"></span></div>
+				<div class="col-md-12 timer-edit-hour">
+							<div class="col-lg-offset-3 col-lg-3 col-md-3 opt-name-timer">
+								<div class="col-md-12 timer-title-big"><span data-i18n="app.title.min_temp"></span></div>
+								<div class="col-md-12 timer-title-big"><span data-i18n="app.title.max_temp"></span></div></div>
+							<div class="col-lg-6 col-md-9 timer-cont">
+								
+								<div class="col-md-12 impostazioni" id="min-temp" style="height: 75px; padding: 0; margin-top: 25px;">
+									<div class="col-md-12" style=" padding-left: 0;">
+										<div class="col-md-2" style="padding: 0;">
+											<div class="click-listener" style="position:absolute; left:0; right:0; top:0; bottom:0; cursor: pointer;" ></div>
+											<button class="min-hour" id="minus_min-temp" class="btn btn-default height-34" disabled="">
+												<i class="glyphicon glyphicon-minus"></i>
+											</button>
+										</div>
+													
+										<div class="col-md-8" style="padding: 0;">
+											<div class="input-groupT">
+												<div class="click-listener" style="position:absolute; left:0; right:0; top:0; bottom:0; cursor: pointer;" ></div>
+												<input id="current_min-temp" type="text" value="{{config_data['alert']['temperature_tlower']}}" class="form-control" disabled=""> 
+											</div>
+										</div>
+												
+										<div class="col-md-2" style="padding: 0;">
+											<div class="click-listener" style="position:absolute; left:0; right:0; top:0; bottom:0; cursor: pointer;" ></div>
+											<button class="plus-hour" id="plus_min-temp" class="btn btn-default height-34" disabled="">
+												<span class="glyphicon glyphicon-plus"></span>
+											</button>
+										</div>
+									</div>
+								</div>
+								
+								<div class="col-md-12 impostazioni" id="max-temp" style="height: 75px; padding: 0;">
+									<div class="col-md-12" style=" padding-left: 0;">
+										<div class="col-md-2" style="padding: 0;">
+											<div class="click-listener" style="position:absolute; left:0; right:0; top:0; bottom:0; cursor: pointer;" ></div>
+											<button class="min-hour" id="minus_max-temp" class="btn btn-default height-34" disabled="">
+												<i class="glyphicon glyphicon-minus"></i>
+											</button>
+										</div>
+													
+										<div class="col-md-8" style="padding: 0;">
+											<div class="input-groupT">
+												<div class="click-listener" style="position:absolute; left:0; right:0; top:0; bottom:0; cursor: pointer;" ></div>
+												<input id="current_max-temp" type="text" value="{{config_data['alert']['temperature_tupper']}}" class="form-control" disabled="" > 
+											</div>
+										</div>
+												
+										<div class="col-md-2" style="padding: 0;">
+											<div class="click-listener" style="position:absolute; left:0; right:0; top:0; bottom:0; cursor: pointer;" ></div>
+											<button class="plus-hour" id="plus_max-temp" class="btn btn-default height-34" disabled="">
+												<span class="glyphicon glyphicon-plus"></span>
+											</button>
+										</div>
+									</div>
+								</div>
+		    			</div>
+		    			
+		    			
+						<div class="col-md-12 timer-edit-temp" style="padding:0" id="email">
+							<div class="col-lg-offset-3 col-lg-3 col-md-3 opt-name-mail"><span data-i18n="app.title.email"></span></div>
+							<div class="col-lg-6 col-md-9 config-temp-mail" id="">
+								<div class="col-md-12" style="padding: 0;">
+									<div class="input-group col-md-12" style="margin-right: -1;">
+										<div class="click-listener" style="position:absolute; left:0; right:0; top:0; bottom:0; cursor: pointer; z-index:50;" ></div>
+										<input style="font-size: 18px;" class="col-md-12" id="current_temp-mail" type="text"
+											value="{{mail_to}}" disabled>
+									</div>
+								</div>
+							</div>
+		
+						</div>
+						<div class="col-md-12 timer-edit-temp" style="padding:0" id="mobile">
+							<div class="col-lg-offset-3 col-lg-3 col-md-3 opt-name-mail"><span data-i18n="app.title.mobile"></span></div>
+							<div class="col-lg-6 col-md-9 config-temp-sms" id="">
+								<div class="col-md-12" style="padding: 0;">
+									<div class="input-group col-md-12" style="margin-right: -1;">
+										<div class="click-listener" style="position:absolute; left:0; right:0; top:0; bottom:0; cursor: pointer; z-index:50;" ></div>
+										<input style="font-size: 18px;" class="col-md-12" id="current_temp-sms" type="text"
+											value="{{sms_to}}" disabled>
+									</div>
+								</div>
+							</div>
+		
+						</div>
+						
+						% if config_data['alert']['temperature_enable'] == True:
+							% true_checked='checked'
+							% false_checked=''
+						% else:
+							% true_checked=''
+							% false_checked='checked'
+						% end
+						<div class="col-md-offset-6 col-md-6">
+						
+  							<div class="radiobutton">
+    							<label>
+      								<input type="radio" name="isActive" value="true" {{true_checked}}> <span class="isActive" data-i18n="app.title.enabled" ></span>
+      								</label>
+      								<label>
+      								<input type="radio" name="isActive" value="false" {{false_checked}}> <span class="isActive" data-i18n="app.title.disabled"></span>
+    							</label>
+  							</div>
+						</div>
+						
+						
+						<div class="col-md-12 cancel-edit-btn-container" >
+						<div class="col-md-2"></div>
+						<div class="col-md-3" style="padding-right: 0;"></div>
+						<div class="col-md-1"></div>
+						<div class="col-md-3" style="padding-left: 0;">
+							<button id="delete"><span data-i18n="app.action.cancel"></span></button></div>
+						<div class="col-md-3" style="padding: 0;">
+							<button id="submit" disabled><span data-i18n="app.action.confirm"></span></button></div>
+					</div>
+					% end
+				% elif config=='unable':
+				<div class="col-md-12 column" style="text-align:right"><span data-i18n="app.title.edit_unable_sets"></span></div>
+				<div class="col-md-12 timer-edit-temp" style="padding:0" id="email">
+							<div class="col-lg-offset-3 col-lg-3 col-md-3 opt-name-mail"><span data-i18n="app.title.email"></span></div>
+							<div class="col-lg-6 col-md-9 config-unable-mail" id="">
+								<div class="col-md-12" style="padding: 0;">
+									<div class="input-group col-md-12" style="margin-right: -1;">
+										<div class="click-listener" style="position:absolute; left:0; right:0; top:0; bottom:0; cursor: pointer; z-index:50;" ></div>
+										<input style="font-size: 18px;" class="col-md-12" id="current_unable-mail" type="text"
+											value="{{mail_to}}" disabled>
+									</div>
+								</div>
+							</div>
+		
+						</div>
+						<div class="col-md-12 timer-edit-temp" style="padding:0" id="mobile" >
+							<div class="col-lg-offset-3 col-lg-3 col-md-3 opt-name-mail"><span data-i18n="app.title.mobile"></span></div>
+							<div class="col-lg-6 col-md-9 config-unable-sms" id="">
+								<div class="col-md-12" style="padding: 0;">
+									<div class="input-group col-md-12" style="margin-right: -1;">
+										<div class="click-listener" style="position:absolute; left:0; right:0; top:0; bottom:0; cursor: pointer; z-index:50;" ></div>
+										<input style="font-size: 18px;" class="col-md-12" id="current_unable-sms" type="text"
+											value="{{sms_to}}" disabled>
+									</div>
+								</div>
+							</div>
+		
+						</div>
+						
+						% if config_data['alert']['unable_enable'] == True:
+							% true_checked='checked'
+							% false_checked=''
+						% else:
+							% true_checked=''
+							% false_checked='checked'
+						% end
+						<div class="col-md-offset-6 col-md-6">
+							
+  							<div class="radiobutton">
+    							<label>
+      								<input type="radio" name="isActive" value="true" {{true_checked}}> <span class="isActive" data-i18n="app.title.enabled"></span>
+      								</label>
+      								<label>
+      								<input type="radio" name="isActive" value="false" {{false_checked}}> <span class="isActive" data-i18n="app.title.disabled"></span>
+    							</label>
+  							</div>
+  							
+						</div>
+						
+						<div class="col-md-12 cancel-edit-btn-container" >
+						<div class="col-md-2"></div>
+						<div class="col-md-3" style="padding-right: 0;"></div>
+						<div class="col-md-1"></div>
+						<div class="col-md-3" style="padding-left: 0;">
+							<button id="delete"><span data-i18n="app.action.cancel"></span></button></div>
+						<div class="col-md-3" style="padding: 0;">
+							<button id="submit" disabled><span data-i18n="app.action.confirm"></span></button></div>
+					</div>
+			% elif config=='room':
+				<div class="col-md-12 column" style="text-align:right"><span data-i18n="app.title.edit_temp_sets"></span></div>
+				<div class="col-md-12 timer-edit-hour">
+							<div class="col-lg-offset-3 col-lg-3 col-md-3 opt-name-timer">
+								<div class="col-md-12 timer-title-big"><span data-i18n="app.title.min_temp"></span></div>
+								<div class="col-md-12 timer-title-big"><span data-i18n="app.title.max_temp"></span></div></div>
+							<div class="col-lg-6 col-md-9 timer-cont">
+								
+								<div class="col-md-12 impostazioni" id="min-temp" style="height: 75px; padding: 0; margin-top: 25px;">
+									<div class="col-md-12" style=" padding-left: 0;">
+										<div class="col-md-2" style="padding: 0;">
+										<div class="click-listener" style="position:absolute; left:0; right:0; top:0; bottom:0; cursor: pointer; z-index:50;" ></div>
+											<button class="min-hour" id="minus_min-temp" class="btn btn-default height-34" disabled="">
+												<i class="glyphicon glyphicon-minus"></i>
+											</button>
+										</div>
+													
+										<div class="col-md-8" style="padding: 0;">
+											<div class="input-groupT">
+												<div class="click-listener" style="position:absolute; left:0; right:0; top:0; bottom:0; cursor: pointer; z-index:50;" ></div>
+												<input id="current_min-temp" type="text" value="10" class="form-control" disabled=""> 
+											</div>
+										</div>
+												
+										<div class="col-md-2" style="padding: 0;">
+										<div class="click-listener" style="position:absolute; left:0; right:0; top:0; bottom:0; cursor: pointer; z-index:50;" ></div>
+											<button class="plus-hour" id="plus_min-temp" class="btn btn-default height-34" disabled="">
+												<span class="glyphicon glyphicon-plus"></span>
+											</button>
+										</div>
+									</div>
+								</div>
+								
+								<div class="col-md-12 impostazioni" id="max-temp" style="height: 75px; padding: 0;">
+									<div class="col-md-12" style=" padding-left: 0;">
+										<div class="col-md-2" style="padding: 0;">
+											<div class="click-listener" style="position:absolute; left:0; right:0; top:0; bottom:0; cursor: pointer; z-index:50;" ></div>
+											<button class="min-hour" id="minus_max-temp" class="btn btn-default height-34" disabled="">
+												<i class="glyphicon glyphicon-minus"></i>
+											</button>
+										</div>
+													
+										<div class="col-md-8" style="padding: 0;">
+											<div class="input-groupT">
+												<div class="click-listener" style="position:absolute; left:0; right:0; top:0; bottom:0; cursor: pointer; z-index:50;" ></div>
+												<input id="current_max-temp" type="text" value="30" class="form-control" disabled="" > 
+											</div>
+										</div>
+												
+										<div class="col-md-2" style="padding: 0;">
+											<div class="click-listener" style="position:absolute; left:0; right:0; top:0; bottom:0; cursor: pointer; z-index:50;" ></div>
+											<button class="plus-hour" id="plus_max-temp" class="btn btn-default height-34" disabled="">
+												<span class="glyphicon glyphicon-plus"></span>
+											</button>
+										</div>
+									</div>
+								</div>
+		    			</div>
+		    	</div>
+		    	<div class="col-md-12 cancel-edit-btn-container" >
+						<div class="col-md-2"></div>
+						<div class="col-md-3" style="padding-right: 0;"></div>
+						<div class="col-md-1"></div>
+						<div class="col-md-3" style="padding-left: 0;">
+							<button id="delete"><span data-i18n="app.action.cancel"></span></button></div>
+						<div class="col-md-3" style="padding: 0;">
+							<button id="submit" disabled><span data-i18n="app.action.confirm"></span></button></div>
+					</div>
+			% end
+		% end
+		</div>
+	</div>
+</div>
+
+%rebase layout.tpl.html custom='alerting', static_file_path=static_file_path, api_path=api_path,context_path=context_path,graph_path=graph_path,selected_nav=selected_nav

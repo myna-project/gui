@@ -1,0 +1,50 @@
+<!-- ***************************************************************************
+*Copyright (c) 2014 Proxima Centauri srl <info@proxima-centauri.it>.
+* All rights reserved. This program and the accompanying materials
+* are made available under the terms of the GNU Public License v3.0
+* which accompanies this distribution, and is available at
+* http://www.gnu.org/licenses/gpl.html
+*  
+* Contributors:
+*     Proxima Centauri srl <info@proxima-centauri.it> - initial API and implementation
+**************************************************************************** -->
+% selected_nav='HOME'
+<div class="row">
+	<div class="col-md-12">
+		<div class="col-md-1">
+			<button id="home-back">
+				<img src="{{static_file_path}}/images/back.png">
+			</button>
+		</div>
+		% if 'Error' is not map:
+			% n=0 
+			% for rooms in map['maps']: 
+				% if n%4==0:
+					<div class="col-md-10 lista" id="{{n}}" >
+					% nroom=1 
+				% end
+	
+				<div class="col-md-6" id="object">
+					%include overview.tpl.html rooms=rooms, deviceStatus=deviceStatus,url_status=url_status, url_logics=url_logics, static_file_path=static_file_path
+				</div>
+	
+				% if (nroom==4) or (n==len(map['maps'])-1):
+					</div>
+				% end 
+				% nroom= nroom+1; 
+				% n=n+1 
+			% end
+		
+		<div class="col-md-1">
+			<button id="home-next">
+				<img src="{{static_file_path}}/images/next.png">
+			</button>
+		</div>
+		% else:
+			<div>
+				<h2 align="center"> <span data-i18n="app.message.unavailable_room_config"></span></h2>
+			</div>
+		% end
+	</div>
+</div>
+%rebase layout.tpl.html custom='overview',static_file_path=static_file_path,api_path=api_path,context_path=context_path, graph_path=graph_path, selected_nav=selected_nav

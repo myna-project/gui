@@ -1,0 +1,65 @@
+{
+	"app" : {
+		"action" : {
+			"edit": "MODIFICA",
+			"cancel" : "ANNULLA",
+			"reset" : "RESET",
+			"confirm" : "CONFERMA",
+			"delete" : "ELIMINA",
+			"add" : "AGGIUNGI",
+			"last_week" : "ULTIMA SETTIMANA",
+			"last_month":"ULTIMO MESE",
+			"last_year" : "ULTIMO ANNO",
+			"last_day" : "ULTIMO 24 ORE"
+		},
+		"mode": {
+			"manual" : "Manuale",
+			"automatic" : "Automatica",
+			"time" : "Oraria"
+		},
+		"title": {
+			"temperature" : "Temperatura",
+			"programming" : "Programmazione",
+			"setting" : "Impostazione",
+			"start" : "Inizio",
+			"end" :"Fine",
+			"days" : "Giorni",
+			"cons_heat" : "Calore consumato",
+			"est_cost" : "Costo stimato",
+			"mobile" : "CELLULARE",
+			"enabled" : "ATTIVO",
+			"disabled" : "INATTIVO",
+			"temp" : "TEMPERATURA",
+			"temp_sets" : "IMPOSTAZIONI ALERT TEMPERATURA",
+			"edit_temp_sets" : "MODIFICA IMPOSTAZIONI TEMPERATURA",
+			"unable_sets" : "IMPOSTAZIONI ALERT DISSERVIZIO",
+			"edit_unable_sets" : "MODIFICA IMPOSTAZIONI DISSERVIZIO",
+			"glob_sets" : "IMPOSTAZIONI GENERALI", 
+			"room_sel" : "SELEZIONE STANZA",
+			"min_temp" : "Temperatura min",
+			"max_temp" : "Temperatura max",
+			"hour": "ore",
+			"minutes" : "minuti",
+			"current_temp": "Temperatura attuale",
+			"set_prog" : "Impostazioni"
+		},
+		"days" : {
+			"sun" : "D",
+			"mon" : "L",
+			"tue" : "M",
+			"wed" : "M",
+			"thu" : "G",
+			"fri" : "V",
+			"sat" : "S"
+		},
+		"message" : {
+			"unavailable_graph" : "Grafici non disponibili",
+			"unavailable_room_config" : "La configurazione delle stanze non è al momento disponibile",
+			"unavailable_config" : "Regolazioni non disponibili",
+			"unavailable_logic_details" : "I dettagli delle logiche non sono al momento disponibili",
+			"unavailable_device_details" : "I dettagli dei device non sono al momento dispobili",
+			"unavailable_room_details" : "I dettagli delle stanze non sono al momento disponibili",
+			"no_valves" : "In questa stanza non sono presenti valvole"
+		}
+	}
+}
